@@ -10,4 +10,8 @@ public class Output {
         System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - "+ result[4] + "개");
         System.out.println("6개 일치 (2,000,000,000원) - "+ result[3] + "개");
     }
+
+    public static void printProfitRate(float profit) {
+        System.out.println("총 수익률은 " +  Math.round(profit * 10) / 10.0f + "%입니다.");
+    }
 }

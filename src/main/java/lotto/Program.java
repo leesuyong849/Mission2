@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static console.Input.*;
+import static console.Output.printProfitRate;
 import static console.Output.printresult;
 
 public class Program {
@@ -36,22 +37,28 @@ public class Program {
             result[i - 3]++;
 
             if (lotto.checkAddtionalNum(addtionalNum)) {
-                result[4]++;        //추가 값이 포함되는 경우는 가장 마지막에 저장
+                result[4] = result[2] + 1;        //추가 값이 포함되는 경우는 가장 마지막에 저장
             }
         }
 
         //당첨 내역 출력
         printresult(result);
 
+        //수익률 연산
+        float profitRate = computePercent(result, num);
+
         //수익률 출력
-
-
+        printProfitRate(profitRate);
     }
 
-    private float computePercent(int[] result) {
+    private float computePercent(int[] result, int num) {
         int totalMoney = 0;
-        for (int i = 0; i < result.length; i++) {
+        totalMoney += result[0] * 5000;
+        totalMoney += result[1] * 50000;
+        totalMoney += result[2] * 1500000;
+        totalMoney += result[3] * 30000000;
+        totalMoney += result[4] * 2000000000;
 
-        }
+        return totalMoney / num;
     }
 }
