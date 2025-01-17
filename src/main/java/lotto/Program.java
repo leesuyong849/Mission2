@@ -18,8 +18,10 @@ public class Program {
 
         //로또 금액 입력
         int num = inputMoney(scanner);
+
         //발행 및 발행한 로또 번호 출력
         publishLotto(lottos, num);
+
         //당첨 번호 입력
         List<Integer> integers = inputLottoNum(scanner);
 
@@ -48,9 +50,11 @@ public class Program {
     private void computeLottoResult(ArrayList<Lotto> lottos, int[] result, List<Integer> integers, Integer addtionalNum) {
         for (Lotto lotto : lottos) {
             int i = lotto.checkLotto(integers);
-            result[i - 3]++;
 
-            if (lotto.checkAddtionalNum(addtionalNum)) {
+            if (i >= 3) {
+                result[i - 3] += 1;
+            }
+            if (lotto.checkAddtionalNum(addtionalNum) && i == 5) {
                 result[4] = result[2] + 1;        //추가 값이 포함되는 경우는 가장 마지막에 저장
             }
         }
@@ -61,9 +65,9 @@ public class Program {
         totalMoney += result[0] * 5000;
         totalMoney += result[1] * 50000;
         totalMoney += result[2] * 1500000;
-        totalMoney += result[3] * 30000000;
-        totalMoney += result[4] * 2000000000;
+        totalMoney += result[4] * 30000000;
+        totalMoney += result[3] * 2000000000;
 
-        return totalMoney / num;
+        return (totalMoney / num) * 100;
     }
 }

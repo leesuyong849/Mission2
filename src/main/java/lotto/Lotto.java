@@ -19,6 +19,17 @@ public class Lotto {
         }
     }
 
+    /**
+     * 중복되는 값이 있는지 확인하고 예외를 던진다.
+     * @param list
+     */
+    public static void validateDupllicateNum(List<Integer> list) {
+        long count = list.stream().distinct().count();
+        if (count < list.size()) {
+            throw new IllegalArgumentException("중복된 값이 입력되었습니다");
+        }
+    }
+
     // TODO: 추가 기능 구현
     public Lotto() {
         //랜덤 값 생성
@@ -26,6 +37,8 @@ public class Lotto {
                 .stream()
                 .sorted()
                 .collect(Collectors.toList());
+
+        validateDupllicateNum(this.numbers);
         //출력
         System.out.print("[");
         this.numbers.forEach(number -> System.out.print(number + " "));
@@ -33,10 +46,12 @@ public class Lotto {
     }
 
     public int checkLotto(List<Integer> input) {
-        return (int) this.numbers.stream()
+        int a = (int) this.numbers.stream()
                 .filter(input::contains)
                 .distinct()
                 .count();
+        System.out.println(a);
+        return a;
     }
 
     public boolean checkAddtionalNum(Integer addtionslNum) {
