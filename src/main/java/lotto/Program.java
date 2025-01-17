@@ -1,9 +1,6 @@
 package lotto;
 
-import org.assertj.core.internal.Integers;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,9 +19,7 @@ public class Program {
         //로또 금액 입력
         int num = inputMoney(scanner);
         //발행 및 발행한 로또 번호 출력
-        for (int i = 0; i < num/1000; i++) {
-            lottos.add(new Lotto());
-        }
+        publishLotto(lottos, num);
         //당첨 번호 입력
         List<Integer> integers = inputLottoNum(scanner);
 
@@ -32,14 +27,7 @@ public class Program {
         Integer addtionalNum = inputAddtionalNum(scanner);
 
         //당첨 내역 확인
-        for (Lotto lotto : lottos) {
-            int i = lotto.checkLotto(integers);
-            result[i - 3]++;
-
-            if (lotto.checkAddtionalNum(addtionalNum)) {
-                result[4] = result[2] + 1;        //추가 값이 포함되는 경우는 가장 마지막에 저장
-            }
-        }
+        computeLottoResult(lottos, result, integers, addtionalNum);
 
         //당첨 내역 출력
         printresult(result);
@@ -49,6 +37,23 @@ public class Program {
 
         //수익률 출력
         printProfitRate(profitRate);
+    }
+
+    private void publishLotto(ArrayList<Lotto> lottos, int num) {
+        for (int i = 0; i < num /1000; i++) {
+            lottos.add(new Lotto());
+        }
+    }
+
+    private void computeLottoResult(ArrayList<Lotto> lottos, int[] result, List<Integer> integers, Integer addtionalNum) {
+        for (Lotto lotto : lottos) {
+            int i = lotto.checkLotto(integers);
+            result[i - 3]++;
+
+            if (lotto.checkAddtionalNum(addtionalNum)) {
+                result[4] = result[2] + 1;        //추가 값이 포함되는 경우는 가장 마지막에 저장
+            }
+        }
     }
 
     private float computePercent(int[] result, int num) {
